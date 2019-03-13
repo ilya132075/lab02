@@ -16,21 +16,23 @@ $ open https://git-scm.com
 
 ## Tutorial
 
-```ShellSession
 Ввод переменных окружения и вызов текстового редактора Sublime Text.
-$ export GITHUB_USERNAME=<имя_пользователя>
-$ export GITHUB_EMAIL=<адрес_почтового_ящика>
-$ export GITHUB_TOKEN=<сгенирированный_токен>
-$ alias edit=<nano|vi|vim|subl>
+```ShellSession
+$ export GITHUB_USERNAME=ilya132075
+$ export GITHUB_EMAIL=pro100.hmel@gmail.com
+$ export GITHUB_TOKEN=xxxxxxxxxxxxx
+$ alias edit=subl
+```
+Начинаем работу в каталоге **workspace**
+```ShellSession
+$ cd ${GITHUB_USERNAME}/workspace # Переход в  рабочую директорию
+$ source scripts/activate # Выполнение команд из файла в текущем командном процессоре
 ```
 
 ```ShellSession
-$ cd ${GITHUB_USERNAME}/workspace
-$ source scripts/activate
-```
-
-```ShellSession
-$ mkdir ~/.config
+# Создание директории `~/.config`
+$ mkdir ~/.config 
+# Создание файла hub
 $ cat > ~/.config/hub <<EOF
 github.com:
 - user: ${GITHUB_USERNAME}
@@ -43,17 +45,35 @@ $ git config --global hub.protocol https
 ```ShellSession
 $ mkdir projects/lab02 && cd projects/lab02
 $ git init
+# Указание пользовательских настроек: адреса, имени пользователя, протокола.
 $ git config --global user.name ${GITHUB_USERNAME}
 $ git config --global user.email ${GITHUB_EMAIL}
-# check your git global settings
+# Проверка настроек
 $ git config -e --global
+[hub]
+        protocol = https
+        [user]
+        email = pro100.hmel@gmail.com
+        name = ilya132075
+# Подключение локального репозитория к удаленному серверу
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab02.git
-$ git pull origin master
+# Объединение изменений, присутствующих в удаленном репозитории, в локальный рабочий каталог
+$ git pull origin master 
+From https://github.com/ilya132075/lab02
+ * branch            master     -> FETCH_HEAD
+ * [new branch]      master     -> origin/master
+Already up to date.
 $ touch README.md
-$ git status
+$ git status #список изменений файла
+On branch master
+nothing to commit, working tree clean
 $ git add README.md
 $ git commit -m"added README.md"
+On branch master
+nothing to commit, working tree clean
+# Помещение изменений в главную ветку удаленного хранилища, связанного с рабочим каталогом
 $ git push origin master
+Everything up-to-date
 ```
 
 Добавить на сервисе **GitHub** в репозитории **lab02** файл **.gitignore**
@@ -65,12 +85,14 @@ $ git push origin master
 *.swp
 .idea/
 ```
-
+Работа с репозиторием.
 ```ShellSession
+#Объединение изменений, присутствующих в удаленном репозитории, в локальный рабочий каталог
 $ git pull origin master
+#Cписок коммитов
 $ git log
 ```
-
+Создание директорий в рабочем каталоге и исполняемых файлов в данных директориях.
 ```ShellSession
 $ mkdir sources
 $ mkdir include
@@ -125,11 +147,11 @@ int main(int argc, char** argv)
 }
 EOF
 ```
-
+Редактируем файл.
 ```ShellSession
 $ edit README.md
 ```
-
+Запись изменений в репозиторий
 ```ShellSession
 $ git status
 $ git add .
